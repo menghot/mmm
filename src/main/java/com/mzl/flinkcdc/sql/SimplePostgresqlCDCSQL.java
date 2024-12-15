@@ -12,6 +12,7 @@ public class SimplePostgresqlCDCSQL {
     public static void main(String[] args)  {
 
         Configuration config = new Configuration();
+
         // Can config in flink cluster
         config.set(CheckpointingOptions.CHECKPOINT_STORAGE, "filesystem");
         config.set(CheckpointingOptions.CHECKPOINTS_DIRECTORY, "file:///tmp/flink/checkpoints");

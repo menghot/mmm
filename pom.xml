@@ -127,7 +127,6 @@
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-runtime-web</artifactId>
             <version>${flink.version}</version>
-
             <exclusions>
                 <exclusion>
                     <groupId>org.slf4j</groupId>
@@ -398,26 +397,27 @@
                                             <include>*:flink-connector-*</include>
                                             <include>*:iceberg-*</include>
                                             <include>*:hadoop-aws*</include>
-                                            <include>*:hadoop-clie*</include>
+                                            <include>*:hadoop-client</include>
+                                            <include>*:hadoop-client-api</include>
                                             <include>*:flink-cdc-demo</include>
                                             <include>*:flink-sql*</include>
                                             <include>*:debezium*</include>
                                             <include>*:postgresql</include>
                                             <include>org.apache.kafka:*</include>
                                         </includes>
-                                        <!--                                        <excludes>-->
-                                        <!--                                            <exclude>org.apache.flink:force-shading</exclude>-->
-                                        <!--                                            <exclude>com.google.code.findbugs:jsr305</exclude>-->
-                                        <!--                                            <exclude>org.slf4j:*</exclude>-->
-                                        <!--                                            <exclude>org.apache.logging.log4j:*</exclude>-->
-                                        <!--                                            <exclude>org.eclipse.jetty:*</exclude>-->
-                                        <!--                                            <exclude>org.wildfly.openssl::*</exclude>-->
-                                        <!--                                            <exclude>log4j:*</exclude>-->
-                                        <!--                                            <exclude>ch.qos.reload4j:*</exclude>-->
-                                        <!--                                            <exclude>com.amazonaws:*</exclude>-->
-                                        <!--                                            <exclude>org.apache.flink:flink-table-api-scala-bridge_2.12</exclude>-->
-                                        <!--                                            <exclude>org.apache.flink:flink-table-planner_2.12</exclude>-->
-                                        <!--                                        </excludes>-->
+<!--                                        <excludes>-->
+<!--                                            <exclude>org.apache.flink:force-shading</exclude>-->
+<!--                                            <exclude>com.google.code.findbugs:jsr305</exclude>-->
+<!--                                            <exclude>org.slf4j:*</exclude>-->
+<!--                                            <exclude>org.apache.logging.log4j:*</exclude>-->
+<!--                                            <exclude>org.eclipse.jetty:*</exclude>-->
+<!--                                            <exclude>org.wildfly.openssl::*</exclude>-->
+<!--                                            <exclude>log4j:*</exclude>-->
+<!--                                            <exclude>ch.qos.reload4j:*</exclude>-->
+<!--                                            <exclude>com.amazonaws:*</exclude>-->
+<!--                                            <exclude>org.apache.flink:flink-table-api-scala-bridge_2.12</exclude>-->
+<!--                                            <exclude>org.apache.flink:flink-table-planner_2.12</exclude>-->
+<!--                                        </excludes>-->
                                     </artifactSet>
                                 </configuration>
                             </execution>
