@@ -15,7 +15,7 @@
         <flink-connector-postgres.version>3.0.1</flink-connector-postgres.version>
         <flink.version>1.19.1</flink.version>
         <gson.version>2.11.0</gson.version>
-        <hadoop.version>3.4.1</hadoop.version>
+        <hadoop.version>3.3.6</hadoop.version>
         <iceberg.version>1.7.1</iceberg.version>
         <java.version>11</java.version>
         <lombok.version>1.18.36</lombok.version>
@@ -25,132 +25,218 @@
         <scala.version>2.12</scala.version>
         <scope.mode>compile</scope.mode>
         <slf4j.version>2.17.2</slf4j.version>
+        <logback.version>1.5.12</logback.version>
     </properties>
 
     <dependencies>
-
         <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-api</artifactId>
-            <version>${slf4j.version}</version>
-            <scope>provided</scope>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>2.0.16</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>${slf4j.version}</version>
-            <scope>provided</scope>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>${logback.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-slf4j-impl</artifactId>
-            <version>${slf4j.version}</version>
-            <scope>provided</scope>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>${fastjson.version}</version>
-            <scope>provided</scope>
-        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>com.alibaba</groupId>-->
+        <!--            <artifactId>fastjson</artifactId>-->
+        <!--            <version>${fastjson.version}</version>-->
+        <!--        </dependency>-->
 
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
-            <version>2.11.0</version>
-            <scope>provided</scope>
+            <version>${gson.version}</version>
         </dependency>
         <dependency>
             <groupId>com.ververica</groupId>
             <artifactId>flink-connector-postgres-cdc</artifactId>
             <version>${flink-connector-postgres.version}</version>
-            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-reload4j</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-clients</artifactId>
             <version>${flink.version}</version>
-            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-reload4j</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-connector-files</artifactId>
             <version>${flink.version}</version>
-            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-reload4j</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-connector-jdbc</artifactId>
             <version>${flink-connector-jdbc.version}</version>
-            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-reload4j</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-connector-kafka</artifactId>
             <version>${flink-connector-kafka-version}</version>
-            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-reload4j</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-csv</artifactId>
             <version>${flink.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-reload4j</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-runtime-web</artifactId>
             <version>${flink.version}</version>
+
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-reload4j</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-sql-connector-hive-2.3.9_2.12</artifactId>
             <version>${flink.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-reload4j</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
+
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-table-api-scala-bridge_${scala.version}</artifactId>
             <version>${flink.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-reload4j</artifactId>
+                </exclusion>
+            </exclusions>
+
         </dependency>
+
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-table-planner_${scala.version}</artifactId>
             <version>${flink.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-reload4j</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
-        <!--    <dependency>-->
-        <!--      <groupId>org.apache.flink</groupId>-->
-        <!--      <artifactId>flink-table-runtime</artifactId>-->
-        <!--      <version>${flink.version}</version>-->
-        <!--    </dependency>-->
 
+        <!--either iceberg-aws-bundle or hadoop-aws-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.apache.iceberg</groupId>-->
+        <!--            <artifactId>iceberg-aws-bundle</artifactId>-->
+        <!--            <version>${iceberg.version}</version>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-aws</artifactId>
             <version>${hadoop.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-reload4j</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-client</artifactId>
             <version>${hadoop.version}</version>
-        </dependency>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-reload4j</artifactId>
+                </exclusion>
+            </exclusions>
 
+        </dependency>
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-client-api</artifactId>
             <version>${hadoop.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-reload4j</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
             <groupId>org.apache.iceberg</groupId>
             <artifactId>iceberg-flink-runtime-1.19</artifactId>
             <version>${iceberg.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-reload4j</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
+
         <dependency>
             <groupId>org.apache.iceberg</groupId>
             <artifactId>iceberg-hive-runtime</artifactId>
             <version>${iceberg.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-reload4j</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -172,6 +258,24 @@
             <artifactId>flink-test-utils</artifactId>
             <version>${flink.version}</version>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-reload4j</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.logging.log4j</groupId>
+                    <artifactId>log4j-slf4j-impl</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.logging.log4j</groupId>
+                    <artifactId>log4j-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.logging.log4j</groupId>
+                    <artifactId>log4j-core</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
     </dependencies>
@@ -206,7 +310,7 @@
                                 <manifest>
                                     <!--<addClasspath>true</addClasspath>-->
                                     <!--<classpathPrefix>lib/</classpathPrefix>-->
-                                    <mainClass>com.mzl.finkcdc.sql.SimplePostgresqlCDCSQL</mainClass>
+                                    <mainClass>com.mzl.flinkcdc.sql.SimplePostgresqlCDCSQL</mainClass>
                                 </manifest>
                             </archive>
                         </configuration>
@@ -222,7 +326,7 @@
                                     <goal>copy-dependencies</goal>
                                 </goals>
                                 <configuration>
-                                    <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                                    <outputDirectory>${project.basedir}/lib</outputDirectory>
                                     <!-- optional -->
                                     <!-- exclude copying test and provided dependencies -->
                                     <includeScope>runtime</includeScope>
@@ -232,6 +336,94 @@
                             </execution>
                         </executions>
                     </plugin>
+
+                    <!--                    <plugin>-->
+                    <!--                        <groupId>org.apache.maven.plugins</groupId>-->
+                    <!--                        <artifactId>maven-assembly-plugin</artifactId>-->
+                    <!--                        <version>3.7.1</version>-->
+                    <!--                        <configuration>-->
+                    <!--                            <archive>-->
+                    <!--                                <manifest>-->
+                    <!--                                    <mainClass>com.mzl.finkcdc.sql.SimplePostgresqlCDCSQL</mainClass>-->
+                    <!--                                </manifest>-->
+                    <!--                            </archive>-->
+                    <!--                            <descriptorRefs>-->
+                    <!--                                <descriptorRef>jar-with-dependencies</descriptorRef>-->
+                    <!--                            </descriptorRefs>-->
+                    <!--                        </configuration>-->
+                    <!--                        <executions>-->
+                    <!--                            <execution>-->
+                    <!--                                <id>make-assembly</id>-->
+                    <!--                                <phase>package</phase>-->
+                    <!--                                <goals>-->
+                    <!--                                    <goal>single</goal>-->
+                    <!--                                </goals>-->
+                    <!--                            </execution>-->
+                    <!--                        </executions>-->
+                    <!--                    </plugin>-->
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-shade-plugin</artifactId>
+                        <version>3.5.3</version>
+                        <executions>
+                            <execution>
+                                <id>shade</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>shade</goal>
+                                </goals>
+                                <configuration>
+                                    <transformers combine.children="append">
+                                        <transformer
+                                                implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                                        <transformer
+                                                implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                            <mainClass>com.mzl.flinkcdc.sql.SimplePostgresqlCDCSQL</mainClass>
+                                        </transformer>
+                                    </transformers>
+                                    <filters>
+                                        <filter>
+                                            <artifact>*:*</artifact>
+                                            <excludes>
+                                                <exclude>META-INF/*.SF</exclude>
+                                                <exclude>META-INF/*.DSA</exclude>
+                                                <exclude>META-INF/*.RSA</exclude>
+                                            </excludes>
+                                        </filter>
+                                    </filters>
+                                    <artifactSet>
+                                        <includes>
+                                            <include>*:flink-cdc-*</include>
+                                            <include>*:flink-connector-*</include>
+                                            <include>*:iceberg-*</include>
+                                            <include>*:hadoop-aws*</include>
+                                            <include>*:hadoop-clie*</include>
+                                            <include>*:flink-cdc-demo</include>
+                                            <include>*:flink-sql*</include>
+                                            <include>*:debezium*</include>
+                                            <include>*:postgresql</include>
+                                            <include>org.apache.kafka:*</include>
+                                        </includes>
+                                        <!--                                        <excludes>-->
+                                        <!--                                            <exclude>org.apache.flink:force-shading</exclude>-->
+                                        <!--                                            <exclude>com.google.code.findbugs:jsr305</exclude>-->
+                                        <!--                                            <exclude>org.slf4j:*</exclude>-->
+                                        <!--                                            <exclude>org.apache.logging.log4j:*</exclude>-->
+                                        <!--                                            <exclude>org.eclipse.jetty:*</exclude>-->
+                                        <!--                                            <exclude>org.wildfly.openssl::*</exclude>-->
+                                        <!--                                            <exclude>log4j:*</exclude>-->
+                                        <!--                                            <exclude>ch.qos.reload4j:*</exclude>-->
+                                        <!--                                            <exclude>com.amazonaws:*</exclude>-->
+                                        <!--                                            <exclude>org.apache.flink:flink-table-api-scala-bridge_2.12</exclude>-->
+                                        <!--                                            <exclude>org.apache.flink:flink-table-planner_2.12</exclude>-->
+                                        <!--                                        </excludes>-->
+                                    </artifactSet>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
                 </plugins>
             </build>
         </profile>

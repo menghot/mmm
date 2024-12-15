@@ -1,4 +1,4 @@
-package com.mzl.finkcdc.sql;
+package com.mzl.flinkcdc.sql;
 
 import org.apache.flink.configuration.CheckpointingOptions;
 import org.apache.flink.configuration.Configuration;
@@ -9,9 +9,10 @@ import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
 
 public class SimplePostgresqlCDCSQL {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args)  {
 
         Configuration config = new Configuration();
+        // Can config in flink cluster
         config.set(CheckpointingOptions.CHECKPOINT_STORAGE, "filesystem");
         config.set(CheckpointingOptions.CHECKPOINTS_DIRECTORY, "file:///tmp/flink/checkpoints");
 
@@ -34,15 +35,20 @@ public class SimplePostgresqlCDCSQL {
 
         final StreamTableEnvironment tEnv = StreamTableEnvironment.create(env);
 
-        //Catalog config
+        //Catalog config if io-impl using org.apache.iceberg.aws.s3.S3FileIO
+        //s3.endpoint, s3.access-key-id, s3.secret-access-key
         String createCatalog = "CREATE CATALOG hive_catalog WITH (\n" +
                 "  'type'='iceberg',\n" +
                 "  'catalog-type'='hive',\n" +
-                "  'uri'='thrift://192.168.80.241:9083',\n" +
-                "  'clients'='5',\n" +
-                "  'property-version'='1',\n" +
-                "  'warehouse'='s3a://hive/warehouse',\n" +
-                "  'hive-conf-dir'='./hive-conf'\n" +
+//                "  'uri'='thrift://192.168.80.241:9083',\n" +
+//                "  'warehouse'='s3://hive/warehouse',\n" +
+
+//                "  'io-impl'='org.apache.iceberg.aws.s3.S3FileIO',\n" +
+//                "  's3.endpoint'='http://192.168.80.241:9000',\n" +
+//                "  's3.access-key-id'='w2Xaege1JZSCpop1Dqd9',\n" +
+//                "  's3.secret-access-key'='yWvk6CGD9FofHE78prTeDn3w3vrqgTtGStz2TnNq',\n" +
+                "  'hive-conf-dir'='./hive-conf'\n," +
+                "  'property-version'='1'" +
                 ")\n";
 
         tEnv.executeSql(createCatalog);
@@ -68,9 +74,9 @@ public class SimplePostgresqlCDCSQL {
                 "  'table-name' = 'bbb'" +
                 ")");
 
-        System.out.println("------------");
-        tEnv.executeSql("select count(*) from hive_catalog.ods.test_cdc2").print();
-        System.out.println("------------");
+//        System.out.println("------------");
+//        tEnv.executeSql("select count(*) from hive_catalog.ods.test_cdc2").print();
+//        System.out.println("------------");
 
         // Execute streaming sql
         tEnv.executeSql("INSERT INTO hive_catalog.ods.test_cdc2 (id, profit)\n" +
