@@ -7,7 +7,7 @@ import org.apache.flink.streaming.api.environment.CheckpointConfig;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
 
-public class SimplePostgresqlCDCSQL {
+public class Pg2HiveIceberg {
 
     public static void main(String[] args)  {
 
@@ -56,7 +56,7 @@ public class SimplePostgresqlCDCSQL {
 
         //Source table config
         tEnv.executeSql("CREATE DATABASE IF NOT EXISTS test");
-        tEnv.executeSql("CREATE TABLE test.bbb (\n" +
+        tEnv.executeSql("CREATE TABLE test.aaa (\n" +
                 "    id                           STRING,\n" +
                 "    show_profit_id               STRING,\n" +
                 "    PRIMARY KEY (id) NOT ENFORCED\n" +
@@ -66,21 +66,18 @@ public class SimplePostgresqlCDCSQL {
                 "  'port' = '5432',\n" +
                 "  'username' = 'postgres',\n" +
                 "  'schema-name' = 'public',\n" +
-                "  'slot.name' = 'bbb',\n" +
+                "  'slot.name' = 'aaa',\n" +
                 "  'password' = 'thinker',\n" +
                 "  'database-name' = 'hivemetastore',\n" +
                 "  'decoding.plugin.name' = 'pgoutput',\n" +
 //                "  'scan.incremental.snapshot.enabled' = 'true',\n" +
 //                "  'scan.startup.mode' = 'initial',\n" +
-                "  'table-name' = 'bbb'" +
+                "  'table-name' = 'aaa'" +
                 ")");
 
-//        System.out.println("------------");
-//        tEnv.executeSql("select count(*) from hive_catalog.ods.test_cdc2").print();
-//        System.out.println("------------");
 
         // Execute streaming sql
         tEnv.executeSql("INSERT INTO hive_catalog.ods.test_cdc2 (id, profit)\n" +
-                "select f.id,f.show_profit_id from test.bbb f");
+                "select f.id,f.show_profit_id from test.aaa f");
     }
 }
